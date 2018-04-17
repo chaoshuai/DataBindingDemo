@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="android.databinding.ObservableMap" />
+
+        <variable
+            name="progress"
+            type="com.choashuai.databindingdemo.Progress" />
+
+        <variable
+            name="model"
+            type="com.choashuai.databindingdemo.ViewModel" />
+
+        <variable
+            name="util"
+            type="com.choashuai.databindingdemo.Util" />
+
+        <variable
+            name="user"
+            type="com.choashuai.databindingdemo.User"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(user.id)}"
+            android:textColor="@android:color/holo_red_light"
+            android:visibility="@{ user.id > 0 ? View.VISIBLE : View.GONE }"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.name}"
+            android:textColor="@{user.id == 0 ? @android:color/holo_red_light : @android:color/holo_blue_light}" />
+
+        <TextView
+            android:id="@+id/blog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.blog}"
+            android:textColor="@android:color/holo_red_light" />
+
+        <Button
+            android:id="@+id/bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->util.onMyClick(user)}"
+            android:text="Button"/>
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:imageUrl="@{user.url}"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.current}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" --- " />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.quality[user.current]}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="@={user.content}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:passwordd="@{user.content}"
+                android:textColor="@android:color/holo_blue_bright" />
+
+            <com.choashuai.databindingdemo.PhilTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.content}"
+                app:zhangphiltoast="@{user.content}" />
+
+            <com.choashuai.databindingdemo.PhilView
+                android:id="@+id/philview"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="@android:color/holo_red_light"
+                app:display="@={model.isDisplay}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.choashuai.databindingdemo.PhilSeekBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                app:philprogress="@={progress.porgress}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{String.valueOf(progress.porgress)}"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="50dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>
